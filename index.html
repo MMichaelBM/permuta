@@ -1,32 +1,171 @@
-<!DOCTYPE html>
-<html lang="pt">
+<!doctype html>
+<html lang="pt-BR">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Quiz de Inglês</title>
-    <link rel="stylesheet" href="styles.css">
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Checklist – Viatura de Salvamento</title>
+
+  <style>
+    body{
+      margin:0;
+      padding:16px;
+      font-family: Arial, Helvetica, sans-serif;
+      background:#0f172a;
+      color:#f8fafc;
+    }
+    h1{
+      margin:0 0 6px 0;
+      font-size:20px;
+    }
+    p{
+      margin:0 0 14px 0;
+      font-size:13px;
+      color:#cbd5f5;
+    }
+    .card{
+      background:#111827;
+      border-radius:12px;
+      padding:14px;
+      max-width:900px;
+      margin:auto;
+    }
+    label{
+      display:block;
+      font-size:12px;
+      color:#cbd5f5;
+      margin-bottom:4px;
+    }
+    input[type=text]{
+      width:100%;
+      padding:8px;
+      border-radius:8px;
+      border:1px solid #334155;
+      background:#020617;
+      color:#f8fafc;
+      margin-bottom:10px;
+    }
+    .info{
+      display:grid;
+      grid-template-columns:1fr 1fr;
+      gap:10px;
+    }
+    @media(max-width:600px){
+      .info{grid-template-columns:1fr;}
+    }
+    .item{
+      display:flex;
+      align-items:center;
+      gap:10px;
+      padding:8px;
+      border-bottom:1px solid #1e293b;
+    }
+    .item:last-child{border-bottom:none;}
+    .item input{
+      width:18px;
+      height:18px;
+      accent-color:#ef4444;
+    }
+    .btn{
+      width:100%;
+      margin-top:16px;
+      padding:12px;
+      font-size:15px;
+      font-weight:bold;
+      border:none;
+      border-radius:10px;
+      background:#ef4444;
+      color:#fff;
+      cursor:pointer;
+    }
+    .btn:hover{opacity:.9}
+    .footer{
+      margin-top:10px;
+      font-size:12px;
+      color:#94a3b8;
+      text-align:center;
+    }
+  </style>
 </head>
+
 <body>
-    <div id="quiz-container">
-        <div id="question-container">
-            <p id="question-text">Aqui será exibida a pergunta</p>
-            <input type="text" id="answer" placeholder="Digite sua resposta">
-            <div id="feedback" class="feedback"></div>
-        </div>
-        <div id="controls">
-            <button id="confirm-btn" onclick="checkAnswer()">Confirmar Resposta</button>
-            <button id="next-btn" onclick="nextQuestion()" style="display:none;">Próxima Pergunta</button>
-            <button id="finish-btn" onclick="finishQuiz()" style="display:none;">Finalizar Quiz</button>
-        </div>
+
+<div class="card">
+  <h1>Checklist – Material da Viatura (Salvamento)</h1>
+  <p>Marque os itens que <b>estão na viatura</b>. Data e hora são registradas automaticamente.</p>
+
+  <!-- FORMULÁRIO -->
+  <form action="https://formsubmit.co/michaelrobs@gmail.com" method="POST">
+
+    <!-- CONFIGURAÇÃO FORMSUBMIT -->
+    <input type="hidden" name="_subject" value="Checklist de Viatura – Salvamento">
+    <input type="hidden" name="_template" value="table">
+    <input type="hidden" name="_captcha" value="false">
+
+    <!-- DATA/HORA AUTOMÁTICA -->
+    <input type="hidden" name="Data e Hora" id="datahora">
+
+    <div class="info">
+      <div>
+        <label>Viatura (prefixo)</label>
+        <input type="text" name="Viatura" placeholder="Ex: ASV-01">
+      </div>
+      <div>
+        <label>Quartel / Unidade</label>
+        <input type="text" name="Unidade" placeholder="Ex: 1ª CIA">
+      </div>
+      <div>
+        <label>Chefe de Guarnição</label>
+        <input type="text" name="Chefe de Guarnição">
+      </div>
+      <div>
+        <label>Condutor</label>
+        <input type="text" name="Condutor">
+      </div>
     </div>
-    <div id="result"></div>
 
-    <!-- Rodapé -->
-    <footer>
-        <p style="font-weight: bold; font-family: Verdana, Geneva, Tahoma, sans-serif; color:DCDCDC">Michael Robson </p> </p>
-        <p><a href="https://www.instagram.com/chaelrobson/" target="_blank">@chaelrobson</a></p>
-    </footer>
+    <hr style="border:1px solid #1e293b;margin:14px 0;">
 
-    <script src="script.js"></script>
+    <!-- CHECKLIST -->
+    <div class="item"><input type="checkbox" name="Motosserra"> 1 - MOTOSSERRA</div>
+    <div class="item"><input type="checkbox" name="Desencarcerador completo"> 01 - DESENCARCERADOR (conjunto completo)</div>
+    <div class="item"><input type="checkbox" name="Corta frio"> 01 - CORTA FRIO</div>
+    <div class="item"><input type="checkbox" name="Alicate"> 01 - ALICATE</div>
+    <div class="item"><input type="checkbox" name="Alicate de corte"> 01 - ALICATE DE CORTE</div>
+    <div class="item"><input type="checkbox" name="Martelo"> 01 - MARTELO</div>
+    <div class="item"><input type="checkbox" name="Chaves de fenda"> 04 - CHAVES DE FENDA</div>
+    <div class="item"><input type="checkbox" name="Chave estrela"> 01 - CHAVE ESTRELA</div>
+    <div class="item"><input type="checkbox" name="Chaves de vela"> 02 - CHAVES DE VELA</div>
+    <div class="item"><input type="checkbox" name="Chave 17"> 01 - CHAVE COMBINADA Nº17</div>
+    <div class="item"><input type="checkbox" name="Serra simples"> 01 - SERRA SIMPLES</div>
+    <div class="item"><input type="checkbox" name="Tambor de captura"> 01 - TAMBOR DE CAPTURA</div>
+    <div class="item"><input type="checkbox" name="Marreta"> 01 - MARRETA</div>
+    <div class="item"><input type="checkbox" name="Facão"> 01 - FACÃO</div>
+    <div class="item"><input type="checkbox" name="Machado"> 01 - MACHADO</div>
+    <div class="item"><input type="checkbox" name="Pás"> 02 - PÁS</div>
+    <div class="item"><input type="checkbox" name="Cambão"> 02 - CAMBÃO</div>
+    <div class="item"><input type="checkbox" name="Fraldão"> 01 - FRALDÃO DE RESGATE</div>
+    <div class="item"><input type="checkbox" name="Nadadeiras"> 02 - PARES DE NADADEIRAS</div>
+    <div class="item"><input type="checkbox" name="Escada extensiva"> 01 - ESCADA EXTENSIVA</div>
+    <div class="item"><input type="checkbox" name="Cones"> 05 - CONES</div>
+    <div class="item"><input type="checkbox" name="Cinta catraca"> 02 - CINTA CATRACA</div>
+
+    <button class="btn" type="submit">ENVIAR CHECKLIST</button>
+
+  </form>
+
+  <div class="footer">
+    CBM • Checklist Operacional de Viatura
+  </div>
+</div>
+
+<script>
+  function setDateTime(){
+    const now = new Date();
+    const dt = now.toLocaleString("pt-BR", { timeZone:"America/Fortaleza" });
+    document.getElementById("datahora").value = dt;
+  }
+  setDateTime();
+</script>
+
 </body>
 </html>
