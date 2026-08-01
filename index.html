@@ -1,171 +1,413 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Checklist – Viatura de Salvamento</title>
+    <meta charset="UTF-8">
 
-  <style>
-    body{
-      margin:0;
-      padding:16px;
-      font-family: Arial, Helvetica, sans-serif;
-      background:#0f172a;
-      color:#f8fafc;
-    }
-    h1{
-      margin:0 0 6px 0;
-      font-size:20px;
-    }
-    p{
-      margin:0 0 14px 0;
-      font-size:13px;
-      color:#cbd5f5;
-    }
-    .card{
-      background:#111827;
-      border-radius:12px;
-      padding:14px;
-      max-width:900px;
-      margin:auto;
-    }
-    label{
-      display:block;
-      font-size:12px;
-      color:#cbd5f5;
-      margin-bottom:4px;
-    }
-    input[type=text]{
-      width:100%;
-      padding:8px;
-      border-radius:8px;
-      border:1px solid #334155;
-      background:#020617;
-      color:#f8fafc;
-      margin-bottom:10px;
-    }
-    .info{
-      display:grid;
-      grid-template-columns:1fr 1fr;
-      gap:10px;
-    }
-    @media(max-width:600px){
-      .info{grid-template-columns:1fr;}
-    }
-    .item{
-      display:flex;
-      align-items:center;
-      gap:10px;
-      padding:8px;
-      border-bottom:1px solid #1e293b;
-    }
-    .item:last-child{border-bottom:none;}
-    .item input{
-      width:18px;
-      height:18px;
-      accent-color:#ef4444;
-    }
-    .btn{
-      width:100%;
-      margin-top:16px;
-      padding:12px;
-      font-size:15px;
-      font-weight:bold;
-      border:none;
-      border-radius:10px;
-      background:#ef4444;
-      color:#fff;
-      cursor:pointer;
-    }
-    .btn:hover{opacity:.9}
-    .footer{
-      margin-top:10px;
-      font-size:12px;
-      color:#94a3b8;
-      text-align:center;
-    }
-  </style>
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <meta
+        name="description"
+        content="Sistema de solicitação de permuta de serviço do CBMCE Itapipoca"
+    >
+
+    <title>Permutas de Serviço | CBMCE Itapipoca</title>
+
+    <link rel="stylesheet" href="style.css">
 </head>
 
 <body>
 
-<div class="card">
-  <h1>Checklist – Material da Viatura (Salvamento)</h1>
-  <p>Marque os itens que <b>estão na viatura</b>. Data e hora são registradas automaticamente.</p>
+    <header class="cabecalho">
+        <div class="cabecalho-conteudo">
 
-  <!-- FORMULÁRIO -->
-  <form action="https://formsubmit.co/michaelrobs@gmail.com" method="POST">
+            <div class="simbolo">
+                🔥
+            </div>
 
-    <!-- CONFIGURAÇÃO FORMSUBMIT -->
-    <input type="hidden" name="_subject" value="Checklist de Viatura – Salvamento">
-    <input type="hidden" name="_template" value="table">
-    <input type="hidden" name="_captcha" value="false">
+            <div class="cabecalho-textos">
+                <p class="instituicao">
+                    CBMCE — ITAPIPOCA
+                </p>
 
-    <!-- DATA/HORA AUTOMÁTICA -->
-    <input type="hidden" name="Data e Hora" id="datahora">
+                <h1>
+                    Permutas de Serviço
+                </h1>
 
-    <div class="info">
-      <div>
-        <label>Viatura (prefixo)</label>
-        <input type="text" name="Viatura" placeholder="Ex: ASV-01">
-      </div>
-      <div>
-        <label>Quartel / Unidade</label>
-        <input type="text" name="Unidade" placeholder="Ex: 1ª CIA">
-      </div>
-      <div>
-        <label>Chefe de Guarnição</label>
-        <input type="text" name="Chefe de Guarnição">
-      </div>
-      <div>
-        <label>Condutor</label>
-        <input type="text" name="Condutor">
-      </div>
-    </div>
+                <p class="subtitulo">
+                    Solicitação eletrônica de troca de serviço
+                </p>
+            </div>
 
-    <hr style="border:1px solid #1e293b;margin:14px 0;">
+        </div>
+    </header>
 
-    <!-- CHECKLIST -->
-    <div class="item"><input type="checkbox" name="Motosserra"> 1 - MOTOSSERRA</div>
-    <div class="item"><input type="checkbox" name="Desencarcerador completo"> 01 - DESENCARCERADOR (conjunto completo)</div>
-    <div class="item"><input type="checkbox" name="Corta frio"> 01 - CORTA FRIO</div>
-    <div class="item"><input type="checkbox" name="Alicate"> 01 - ALICATE</div>
-    <div class="item"><input type="checkbox" name="Alicate de corte"> 01 - ALICATE DE CORTE</div>
-    <div class="item"><input type="checkbox" name="Martelo"> 01 - MARTELO</div>
-    <div class="item"><input type="checkbox" name="Chaves de fenda"> 04 - CHAVES DE FENDA</div>
-    <div class="item"><input type="checkbox" name="Chave estrela"> 01 - CHAVE ESTRELA</div>
-    <div class="item"><input type="checkbox" name="Chaves de vela"> 02 - CHAVES DE VELA</div>
-    <div class="item"><input type="checkbox" name="Chave 17"> 01 - CHAVE COMBINADA Nº17</div>
-    <div class="item"><input type="checkbox" name="Serra simples"> 01 - SERRA SIMPLES</div>
-    <div class="item"><input type="checkbox" name="Tambor de captura"> 01 - TAMBOR DE CAPTURA</div>
-    <div class="item"><input type="checkbox" name="Marreta"> 01 - MARRETA</div>
-    <div class="item"><input type="checkbox" name="Facão"> 01 - FACÃO</div>
-    <div class="item"><input type="checkbox" name="Machado"> 01 - MACHADO</div>
-    <div class="item"><input type="checkbox" name="Pás"> 02 - PÁS</div>
-    <div class="item"><input type="checkbox" name="Cambão"> 02 - CAMBÃO</div>
-    <div class="item"><input type="checkbox" name="Fraldão"> 01 - FRALDÃO DE RESGATE</div>
-    <div class="item"><input type="checkbox" name="Nadadeiras"> 02 - PARES DE NADADEIRAS</div>
-    <div class="item"><input type="checkbox" name="Escada extensiva"> 01 - ESCADA EXTENSIVA</div>
-    <div class="item"><input type="checkbox" name="Cones"> 05 - CONES</div>
-    <div class="item"><input type="checkbox" name="Cinta catraca"> 02 - CINTA CATRACA</div>
+    <main class="container">
 
-    <button class="btn" type="submit">ENVIAR CHECKLIST</button>
+        <section class="aviso">
+            <strong>Atenção:</strong>
+            preencha os dados corretamente e confirme previamente a permuta
+            com o outro militar.
+        </section>
 
-  </form>
+        <form
+            id="formPermuta"
+            class="formulario"
+        >
 
-  <div class="footer">
-    CBM • Checklist Operacional de Viatura
-  </div>
-</div>
+            <section class="bloco">
 
-<script>
-  function setDateTime(){
-    const now = new Date();
-    const dt = now.toLocaleString("pt-BR", { timeZone:"America/Fortaleza" });
-    document.getElementById("datahora").value = dt;
-  }
-  setDateTime();
-</script>
+                <div class="titulo-bloco">
+
+                    <span class="numero">
+                        1
+                    </span>
+
+                    <div>
+                        <h2>
+                            Dados do solicitante
+                        </h2>
+
+                        <p>
+                            Informe os seus dados funcionais.
+                        </p>
+                    </div>
+
+                </div>
+
+                <div class="grade">
+
+                    <div class="campo campo-grande">
+
+                        <label for="nomeSolicitante">
+                            Nome completo
+                        </label>
+
+                        <input
+                            type="text"
+                            id="nomeSolicitante"
+                            name="nomeSolicitante"
+                            placeholder="Ex.: Michael Robson"
+                            minlength="5"
+                            maxlength="100"
+                            autocomplete="name"
+                            required
+                        >
+
+                    </div>
+
+                    <div class="campo">
+
+                        <label for="matriculaSolicitante">
+                            Matrícula
+                        </label>
+
+                        <input
+                            type="text"
+                            id="matriculaSolicitante"
+                            name="matriculaSolicitante"
+                            placeholder="Digite sua matrícula"
+                            maxlength="20"
+                            inputmode="numeric"
+                            required
+                        >
+
+                    </div>
+
+                    <div class="campo campo-grande">
+
+                        <label>
+                            Datas dos meus serviços
+                        </label>
+
+                        <div
+                            id="datasSolicitante"
+                            class="lista-datas"
+                        >
+
+                            <div class="linha-data">
+
+                                <input
+                                    type="date"
+                                    class="data-solicitante"
+                                    required
+                                >
+
+                                <button
+                                    type="button"
+                                    class="botao-remover-data"
+                                    aria-label="Remover data"
+                                    disabled
+                                >
+                                    ×
+                                </button>
+
+                            </div>
+
+                        </div>
+
+                        <button
+                            type="button"
+                            id="adicionarDataSolicitante"
+                            class="botao-adicionar-data"
+                        >
+                            + Adicionar outro dia
+                        </button>
+
+                    </div>
+
+                </div>
+
+            </section>
+
+            <section class="bloco">
+
+                <div class="titulo-bloco">
+
+                    <span class="numero">
+                        2
+                    </span>
+
+                    <div>
+                        <h2>
+                            Militar da permuta
+                        </h2>
+
+                        <p>
+                            Informe os dados do outro militar.
+                        </p>
+                    </div>
+
+                </div>
+
+                <div class="grade">
+
+                    <div class="campo campo-grande">
+
+                        <label for="nomePermutante">
+                            Nome completo
+                        </label>
+
+                        <input
+                            type="text"
+                            id="nomePermutante"
+                            name="nomePermutante"
+                            placeholder="Nome do militar"
+                            minlength="5"
+                            maxlength="100"
+                            required
+                        >
+
+                    </div>
+
+                    <div class="campo">
+
+                        <label for="matriculaPermutante">
+                            Matrícula
+                        </label>
+
+                        <input
+                            type="text"
+                            id="matriculaPermutante"
+                            name="matriculaPermutante"
+                            placeholder="Matrícula do militar"
+                            maxlength="20"
+                            inputmode="numeric"
+                            required
+                        >
+
+                    </div>
+
+                    <div class="campo campo-grande">
+
+                        <label>
+                            Datas dos serviços do outro militar
+                        </label>
+
+                        <div
+                            id="datasPermutante"
+                            class="lista-datas"
+                        >
+
+                            <div class="linha-data">
+
+                                <input
+                                    type="date"
+                                    class="data-permutante"
+                                    required
+                                >
+
+                                <button
+                                    type="button"
+                                    class="botao-remover-data"
+                                    aria-label="Remover data"
+                                    disabled
+                                >
+                                    ×
+                                </button>
+
+                            </div>
+
+                        </div>
+
+                        <button
+                            type="button"
+                            id="adicionarDataPermutante"
+                            class="botao-adicionar-data"
+                        >
+                            + Adicionar outro dia
+                        </button>
+
+                    </div>
+
+                </div>
+
+            </section>
+
+            <section class="bloco">
+
+                <div class="titulo-bloco">
+
+                    <span class="numero">
+                        3
+                    </span>
+
+                    <div>
+                        <h2>
+                            Informações adicionais
+                        </h2>
+
+                        <p>
+                            Acrescente uma observação, caso necessário.
+                        </p>
+                    </div>
+
+                </div>
+
+                <div class="campo">
+
+                    <label for="observacao">
+                        Observação
+                        <span class="opcional">
+                            (opcional)
+                        </span>
+                    </label>
+
+                    <textarea
+                        id="observacao"
+                        name="observacao"
+                        rows="4"
+                        maxlength="500"
+                        placeholder="Digite alguma informação adicional..."
+                    ></textarea>
+
+                    <div class="contador">
+                        <span id="quantidadeCaracteres">
+                            0
+                        </span>/500
+                    </div>
+
+                </div>
+
+            </section>
+
+            <section class="bloco confirmacao">
+
+                <label class="caixa-confirmacao">
+
+                    <input
+                        type="checkbox"
+                        id="concordancia"
+                        name="concordancia"
+                        required
+                    >
+
+                    <span>
+                        Declaro que os dados informados estão corretos e que
+                        ambos os militares estão de acordo com esta solicitação
+                        de permuta.
+                    </span>
+
+                </label>
+
+            </section>
+
+            <div
+                id="mensagemErro"
+                class="mensagem erro"
+                hidden
+            ></div>
+
+            <div class="acoes">
+
+                <button
+                    type="button"
+                    id="botaoLimpar"
+                    class="botao botao-secundario"
+                >
+                    Limpar formulário
+                </button>
+
+                <button
+                    type="submit"
+                    id="botaoEnviar"
+                    class="botao botao-principal"
+                >
+                    Enviar pelo WhatsApp
+                </button>
+
+            </div>
+
+        </form>
+
+        <section
+            id="resultado"
+            class="resultado"
+            aria-live="polite"
+            hidden
+        >
+
+            <div class="resultado-icone">
+                ✓
+            </div>
+
+            <div>
+
+                <h2>
+                    Solicitação preparada
+                </h2>
+
+                <p>
+                    Protocolo:
+                    <strong id="protocoloGerado"></strong>
+                </p>
+
+                <p>
+                    O WhatsApp será aberto com a mensagem preenchida.
+                    Confira os dados e toque em enviar.
+                </p>
+
+            </div>
+
+        </section>
+
+    </main>
+
+    <footer class="rodape">
+
+        <p>
+            Sistema de Permutas de Serviço — CBMCE Itapipoca
+        </p>
+
+        <p>
+            Esta solicitação somente será válida após análise e aprovação.
+        </p>
+
+    </footer>
+
+    <script src="script.js"></script>
 
 </body>
 </html>
