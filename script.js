@@ -1,91 +1,538 @@
-let currentQuestionIndex = 0;
-const questions = [
-    { question: "Digite 'quarenta e cinco'? em inglês", answer: "forty five" },
-    { question: "Digite 'cinquenta'? em inglês", answer: "fifty" },
-    { question: "Como você diz 'canadense' em inglês?", answer: "Canadian" },
-    { question: "Qual é o adjetivo que descreve algo pequeno?", answer: "small" },
-    { question: "Como você diz 'francês' em inglês?", answer: "French" },
-    { question: "Qual é o termo em inglês para o membro da família que é a mãe do pai?", answer: "grandmother" },
-    { question: "Qual é o número de 0 a 10 em inglês para 'nove'?", answer: "nine" },
-    { question: "Como você diz 'italiano' em inglês?", answer: "Italian" },
-    { question: "Como você diz 'Peruano' em inglês?", answer: "Peruvian" },
-    { question: "Qual é o adjetivo que descreve algo muito rápido?", answer: "fast" },
-    { question: "Como você diz 'tio' em inglês?", answer: "uncle" },
-    { question: "Digite 'doze' em inglês", answer: "twelve" },
-    { question: "Qual é a nacionalidade de alguém que vem do Japão?", answer: "Japanese" },
-    { question: "Qual é o termo em inglês para o membro da família que é a esposa do meu pai?", answer: "stepmother" },
-    { question: "Digite 'trinta' em inglês", answer: "thirty" },
-    { question: "Digite 'Sessenta e dois' em inglês.", answer: "sixty two" },
-    { question: "Como você diz 'mexicano' em inglês?", answer: "Mexican" },
-    { question: "Qual é o adjetivo que descreve algo muito antigo?", answer: "old" },
-    { question: "Como você diz 'irmã' em inglês?", answer: "sister" },
-    { question: "Qual é o número de 0 a 10 em inglês para 'sessenta e cinco'?", answer: "sixty five" },
-    { question: "Como você diz 'argentino' em inglês?", answer: "Argentine" },
-    { question: "Qual é o termo em inglês para o membro da família que é o pai da mãe?", answer: "grandfather" },
-    { question: "Digite 'vinte e cinco' em inglês", answer: "twenty five" },
-    { question: "Como você diz 'inglês' em inglês?", answer: "English" },
-    { question: "Qual é o adjetivo que descreve algo confortável?", answer: "comfortable" },
-    { question: "Como você diz 'cachorro' em inglês?", answer: "dog" },
-    { question: "Digite 'oitenta' em inglês", answer: "eighty" },
-    { question: "Como você diz 'espanhol' em inglês?", answer: "Spanish" },
-    { question: "Qual é o termo em inglês para o membro da família que é o irmão da minha mãe?", answer: "uncle" },
-    { question: "Digite 'cinquenta' em inglês?", answer: "fifty" },
-    { question: "Como você diz 'português' em inglês?", answer: "Portuguese" },
-    { question: "Qual é o adjetivo que descreve algo novo?", answer: "new" },
-    { question: "Como você diz 'avô' em inglês?", answer: "grandfather" },
-    { question: "Digite'noventa e cinco' em inglês?", answer: "ninety five" },
-    { question: "Como você diz 'suiço' em inglês?", answer: "Swiss" },
-    { question: "Qual é o termo em inglês para o membro da família que é a mãe do meu pai?", answer: "grandmother" },
-    { question: "Digite 'trinta e dois' em inglês", answer: "thirty two" },
-    { question: "Como você diz 'brasileiro' em inglês?", answer: "Brazilian" },
-    { question: "Qual é o adjetivo que descreve algo bonito?", answer: "beautiful" },
-    { question: "Como você diz 'irmão' em inglês?", answer: "brother" }
-];
+"use strict";
 
-function shuffleArray(array) {
-    for (let i = array.length - 1; i > 0; i--) {
-        const j = Math.floor(Math.random() * (i + 1));
-        [array[i], array[j]] = [array[j], array[i]];
+const NUMERO_WHATSAPP = "5585988882733";
+
+const formulario = document.getElementById("formPermuta");
+const botaoLimpar = document.getElementById("botaoLimpar");
+const observacao = document.getElementById("observacao");
+
+const quantidadeCaracteres = document.getElementById(
+    "quantidadeCaracteres"
+);
+
+const mensagemErro = document.getElementById("mensagemErro");
+const resultado = document.getElementById("resultado");
+const protocoloGerado = document.getElementById("protocoloGerado");
+
+const datasSolicitante = document.getElementById(
+    "datasSolicitante"
+);
+
+const datasPermutante = document.getElementById(
+    "datasPermutante"
+);
+
+const adicionarDataSolicitante = document.getElementById(
+    "adicionarDataSolicitante"
+);
+
+const adicionarDataPermutante = document.getElementById(
+    "adicionarDataPermutante"
+);
+
+function limparTexto(texto) {
+    return texto
+        .trim()
+        .replace(/\s+/g, " ");
+}
+
+function formatarNome(nome) {
+    const palavrasMinusculas = [
+        "da",
+        "de",
+        "do",
+        "das",
+        "dos",
+        "e"
+    ];
+
+    return limparTexto(nome)
+        .toLowerCase()
+        .split(" ")
+        .map((palavra, indice) => {
+            if (
+                indice !== 0 &&
+                palavrasMinusculas.includes(palavra)
+            ) {
+                return palavra;
+            }
+
+            return (
+                palavra.charAt(0).toUpperCase() +
+                palavra.slice(1)
+            );
+        })
+        .join(" ");
+}
+
+function formatarData(dataISO) {
+    if (!dataISO) {
+        return "";
+    }
+
+    const partes = dataISO.split("-");
+
+    if (partes.length !== 3) {
+        return dataISO;
+    }
+
+    const [ano, mes, dia] = partes;
+
+    return `${dia}/${mes}/${ano}`;
+}
+
+function gerarProtocolo() {
+    const agora = new Date();
+
+    const ano = agora.getFullYear();
+
+    const mes = String(
+        agora.getMonth() + 1
+    ).padStart(2, "0");
+
+    const dia = String(
+        agora.getDate()
+    ).padStart(2, "0");
+
+    const hora = String(
+        agora.getHours()
+    ).padStart(2, "0");
+
+    const minuto = String(
+        agora.getMinutes()
+    ).padStart(2, "0");
+
+    const segundo = String(
+        agora.getSeconds()
+    ).padStart(2, "0");
+
+    return `PER-${ano}${mes}${dia}-${hora}${minuto}${segundo}`;
+}
+
+function mostrarErro(texto) {
+    mensagemErro.textContent = texto;
+    mensagemErro.hidden = false;
+
+    mensagemErro.scrollIntoView({
+        behavior: "smooth",
+        block: "center"
+    });
+}
+
+function esconderErro() {
+    mensagemErro.textContent = "";
+    mensagemErro.hidden = true;
+}
+
+function criarCampoData(classeData) {
+    const linha = document.createElement("div");
+
+    linha.className = "linha-data";
+
+    linha.innerHTML = `
+        <input
+            type="date"
+            class="${classeData}"
+            required
+        >
+
+        <button
+            type="button"
+            class="botao-remover-data"
+            aria-label="Remover data"
+        >
+            ×
+        </button>
+    `;
+
+    return linha;
+}
+
+function atualizarBotoesRemover(container) {
+    const linhas = container.querySelectorAll(
+        ".linha-data"
+    );
+
+    linhas.forEach((linha) => {
+        const botao = linha.querySelector(
+            ".botao-remover-data"
+        );
+
+        botao.disabled = linhas.length === 1;
+    });
+}
+
+function adicionarCampoData(container, classeData) {
+    const linha = criarCampoData(classeData);
+
+    container.appendChild(linha);
+
+    atualizarBotoesRemover(container);
+
+    const novoCampo = linha.querySelector("input");
+
+    novoCampo.focus();
+}
+
+function configurarRemocaoDatas(container) {
+    container.addEventListener("click", (evento) => {
+        const botao = evento.target.closest(
+            ".botao-remover-data"
+        );
+
+        if (!botao || botao.disabled) {
+            return;
+        }
+
+        const linha = botao.closest(".linha-data");
+
+        linha.remove();
+
+        atualizarBotoesRemover(container);
+    });
+}
+
+function obterDatas(classeData) {
+    return Array.from(
+        document.querySelectorAll(`.${classeData}`)
+    )
+        .map((campo) => campo.value)
+        .filter(Boolean);
+}
+
+function ordenarDatas(datas) {
+    return [...datas].sort((dataA, dataB) => {
+        return dataA.localeCompare(dataB);
+    });
+}
+
+function formatarListaDatas(datas) {
+    return datas
+        .map((data) => `• ${formatarData(data)}`)
+        .join("\n");
+}
+
+function validarDatas(
+    listaDatasSolicitante,
+    listaDatasPermutante
+) {
+    if (
+        listaDatasSolicitante.length === 0 ||
+        listaDatasPermutante.length === 0
+    ) {
+        return {
+            valido: false,
+            mensagem:
+                "Informe pelo menos uma data para cada militar."
+        };
+    }
+
+    const datasUnicasSolicitante = new Set(
+        listaDatasSolicitante
+    );
+
+    if (
+        datasUnicasSolicitante.size !==
+        listaDatasSolicitante.length
+    ) {
+        return {
+            valido: false,
+            mensagem:
+                "Existem datas repetidas nos serviços do solicitante."
+        };
+    }
+
+    const datasUnicasPermutante = new Set(
+        listaDatasPermutante
+    );
+
+    if (
+        datasUnicasPermutante.size !==
+        listaDatasPermutante.length
+    ) {
+        return {
+            valido: false,
+            mensagem:
+                "Existem datas repetidas nos serviços do militar solicitado."
+        };
+    }
+
+    const datasEmComum = listaDatasSolicitante.filter(
+        (data) => listaDatasPermutante.includes(data)
+    );
+
+    if (datasEmComum.length > 0) {
+        return {
+            valido: false,
+            mensagem:
+                "Uma mesma data não pode constar nos serviços dos dois militares."
+        };
+    }
+
+    return {
+        valido: true,
+        mensagem: ""
+    };
+}
+
+function montarMensagem(dados) {
+    const observacaoTexto = dados.observacao
+        ? dados.observacao
+        : "Nenhuma observação informada.";
+
+    return (
+`*SOLICITAÇÃO DE PERMUTA DE SERVIÇO*
+*CBMCE — ITAPIPOCA*
+
+*Protocolo:* ${dados.protocolo}
+
+*SOLICITANTE*
+Nome: ${dados.nomeSolicitante}
+Matrícula: ${dados.matriculaSolicitante}
+
+*MILITAR DA PERMUTA*
+Nome: ${dados.nomePermutante}
+Matrícula: ${dados.matriculaPermutante}
+
+*SOLICITAÇÃO*
+
+Eu, ${dados.nomeSolicitante}, matrícula ${dados.matriculaSolicitante}, estou escalado para os serviços dos seguintes dias:
+
+${formatarListaDatas(dados.datasSolicitante)}
+
+Solicito autorização para permutar esses serviços com ${dados.nomePermutante}, matrícula ${dados.matriculaPermutante}, que está escalado para os seguintes dias:
+
+${formatarListaDatas(dados.datasPermutante)}
+
+*Observação:*
+${observacaoTexto}
+
+Declaro que os dados informados estão corretos e que ambos os militares estão de acordo com esta solicitação.
+
+*Status:* Aguardando análise e aprovação.`
+    );
+}
+
+function abrirWhatsApp(mensagem) {
+    const mensagemCodificada =
+        encodeURIComponent(mensagem);
+
+    const enderecoWhatsApp =
+        `https://wa.me/${NUMERO_WHATSAPP}` +
+        `?text=${mensagemCodificada}`;
+
+    const novaJanela = window.open(
+        enderecoWhatsApp,
+        "_blank",
+        "noopener,noreferrer"
+    );
+
+    if (!novaJanela) {
+        window.location.href = enderecoWhatsApp;
     }
 }
 
-function showQuestion(index) {
-    const question = questions[index];
-    document.getElementById('question-text').textContent = question.question;
-    document.getElementById('answer').value = '';
-    document.getElementById('feedback').textContent = '';
-    document.getElementById('confirm-btn').style.display = 'inline-block';
-    document.getElementById('next-btn').style.display = 'none';
+function resetarCamposDeData() {
+    datasSolicitante.innerHTML = `
+        <div class="linha-data">
+            <input
+                type="date"
+                class="data-solicitante"
+                required
+            >
+
+            <button
+                type="button"
+                class="botao-remover-data"
+                aria-label="Remover data"
+                disabled
+            >
+                ×
+            </button>
+        </div>
+    `;
+
+    datasPermutante.innerHTML = `
+        <div class="linha-data">
+            <input
+                type="date"
+                class="data-permutante"
+                required
+            >
+
+            <button
+                type="button"
+                class="botao-remover-data"
+                aria-label="Remover data"
+                disabled
+            >
+                ×
+            </button>
+        </div>
+    `;
 }
 
-function checkAnswer() {
-    const userAnswer = document.getElementById('answer').value.trim().toLowerCase();
-    const correctAnswer = questions[currentQuestionIndex].answer.toLowerCase();
-
-    if (userAnswer === correctAnswer) {
-        document.getElementById('feedback').textContent = 'Resposta correta!';
-        document.getElementById('next-btn').style.display = 'inline-block';
-        document.getElementById('confirm-btn').style.display = 'none';
-    } else {
-        document.getElementById('feedback').innerHTML = `Resposta incorreta. A resposta correta é: <strong>${questions[currentQuestionIndex].answer}</strong>`;
+adicionarDataSolicitante.addEventListener(
+    "click",
+    () => {
+        adicionarCampoData(
+            datasSolicitante,
+            "data-solicitante"
+        );
     }
-}
+);
 
-function nextQuestion() {
-    currentQuestionIndex++;
-    if (currentQuestionIndex < questions.length) {
-        showQuestion(currentQuestionIndex);
-    } else {
-        finishQuiz();
+adicionarDataPermutante.addEventListener(
+    "click",
+    () => {
+        adicionarCampoData(
+            datasPermutante,
+            "data-permutante"
+        );
     }
-}
+);
 
-function finishQuiz() {
-    document.getElementById('quiz-container').style.display = 'none';
-    document.getElementById('result').textContent = 'Parabéns, você completou o quiz!';
-}
+configurarRemocaoDatas(datasSolicitante);
+configurarRemocaoDatas(datasPermutante);
 
-document.addEventListener('DOMContentLoaded', () => {
-    shuffleArray(questions); // Embaralha as perguntas
-    showQuestion(currentQuestionIndex);
+observacao.addEventListener("input", () => {
+    quantidadeCaracteres.textContent =
+        observacao.value.length;
+});
+
+formulario.addEventListener("submit", (evento) => {
+    evento.preventDefault();
+
+    esconderErro();
+    resultado.hidden = true;
+
+    if (!formulario.checkValidity()) {
+        formulario.reportValidity();
+
+        mostrarErro(
+            "Preencha todos os campos obrigatórios antes de continuar."
+        );
+
+        return;
+    }
+
+    const nomeSolicitante = formatarNome(
+        document.getElementById(
+            "nomeSolicitante"
+        ).value
+    );
+
+    const matriculaSolicitante = limparTexto(
+        document.getElementById(
+            "matriculaSolicitante"
+        ).value
+    );
+
+    const nomePermutante = formatarNome(
+        document.getElementById(
+            "nomePermutante"
+        ).value
+    );
+
+    const matriculaPermutante = limparTexto(
+        document.getElementById(
+            "matriculaPermutante"
+        ).value
+    );
+
+    const textoObservacao = limparTexto(
+        observacao.value
+    );
+
+    const concordancia = document.getElementById(
+        "concordancia"
+    ).checked;
+
+    const listaDatasSolicitante = ordenarDatas(
+        obterDatas("data-solicitante")
+    );
+
+    const listaDatasPermutante = ordenarDatas(
+        obterDatas("data-permutante")
+    );
+
+    if (
+        matriculaSolicitante ===
+        matriculaPermutante
+    ) {
+        mostrarErro(
+            "A matrícula do solicitante não pode ser igual à matrícula do militar solicitado."
+        );
+
+        return;
+    }
+
+    const validacaoDatas = validarDatas(
+        listaDatasSolicitante,
+        listaDatasPermutante
+    );
+
+    if (!validacaoDatas.valido) {
+        mostrarErro(validacaoDatas.mensagem);
+        return;
+    }
+
+    if (!concordancia) {
+        mostrarErro(
+            "É necessário confirmar que ambos os militares estão de acordo."
+        );
+
+        return;
+    }
+
+    const protocolo = gerarProtocolo();
+
+    const dados = {
+        protocolo,
+        nomeSolicitante,
+        matriculaSolicitante,
+        datasSolicitante:
+            listaDatasSolicitante,
+        nomePermutante,
+        matriculaPermutante,
+        datasPermutante:
+            listaDatasPermutante,
+        observacao: textoObservacao
+    };
+
+    const mensagem = montarMensagem(dados);
+
+    protocoloGerado.textContent = protocolo;
+    resultado.hidden = false;
+
+    resultado.scrollIntoView({
+        behavior: "smooth",
+        block: "center"
+    });
+
+    abrirWhatsApp(mensagem);
+});
+
+botaoLimpar.addEventListener("click", () => {
+    const confirmarLimpeza = window.confirm(
+        "Deseja apagar todos os dados preenchidos?"
+    );
+
+    if (!confirmarLimpeza) {
+        return;
+    }
+
+    formulario.reset();
+
+    resetarCamposDeData();
+
+    quantidadeCaracteres.textContent = "0";
+
+    esconderErro();
+
+    resultado.hidden = true;
+
+    document.getElementById(
+        "nomeSolicitante"
+    ).focus();
 });
